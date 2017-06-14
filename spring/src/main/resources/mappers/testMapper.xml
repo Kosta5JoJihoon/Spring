@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="test">
+	<!-- mappers/testMapper.xml -->
+	<!-- 
+	
+		<<MyBatis 변경사항>>
+	- rootElement : sqlMap ===>Mapper
+	- name space는 필수
+	- resultClass 속성 ===> resultType 속성
+	  parameterClass속성 ===> parameterType 속성
+	  ===> 생략 가능(parameterClass 속성만)!!!!
+	-#userid# ===> #{userid}
+	 getUserid()
+	 -->
+	 <insert id="insert">
+	 insert into emp (empno, ename, sal, hiredate) 
+	 values (8000,'홍길동', 3000, sysdate)
+	 </insert>
+	 
+	 <insert id="insert2">
+	 insert into emp (empno, ename, sal, hiredate) values(#{empno}, #{ename}, #{sal}, sysdate)
+	 </insert>
+	 
+	 <!-- 7788번을 갖는 사원의 사원명 조회 -->
+	 <select id="selEname" resultType="String">
+	 select ename from emp where empno=7788
+	 </select>
+	 
+	 <!-- 30번 부서에 근무하는 사원의 정보(사원번호, 사원명, 급여)조회 -->
+	 <select id="selEmp" parameterType="int" resultType="com.kosta.myapp.Emp">
+	 select empno, ename, sal
+	 from emp
+	 where deptno=#{deptno}
+	 </select>
+</mapper>
